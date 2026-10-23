@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud-Based Disease Prediction System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Cloud-Based Disease Prediction System</h1>
+        <p>Enter your symptoms to explore an educational prediction demo.</p>
+
+        <form id="prediction-form">
+            <label for="symptoms">Select your symptoms</label>
+
+            <select id="symptoms" name="symptoms" multiple required>
+                <option value="fever">Fever</option>
+                <option value="cough">Cough</option>
+                <option value="headache">Headache</option>
+                <option value="fatigue">Fatigue</option>
+                <option value="sore_throat">Sore throat</option>
+                <option value="body_pain">Body pain</option>
+            </select>
+
+            <p class="hint">Hold Ctrl (Windows) while clicking to select multiple symptoms.</p>
+
+            <button type="submit">Check Prediction</button>
+        </form>
+
+        <div id="result" role="status" aria-live="polite"></div>
+
+        <p class="disclaimer">
+            Educational demonstration only. This tool cannot diagnose disease
+            or replace advice from a qualified healthcare professional.
+        </p>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
