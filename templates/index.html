@@ -1,41 +1,153 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud-Based Disease Prediction System</title>
+    <title>HealthPredict | Disease Prediction System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Cloud-Based Disease Prediction System</h1>
-        <p>Enter your symptoms to explore an educational prediction demo.</p>
+    <header class="navbar">
+        <a href="/" class="brand">
+            <span class="brand-icon">+</span>
+            <span>HealthPredict</span>
+        </a>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#checker">Symptom Checker</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
 
-        <form id="prediction-form">
-            <label for="symptoms">Select your symptoms</label>
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <span class="eyebrow">SMART HEALTHCARE PROJECT</span>
+                <h1>Understand your symptoms.<br><span>Explore your health.</span></h1>
+                <p>
+                    An educational machine learning project that demonstrates
+                    how selected symptoms can be processed by a prediction model.
+                </p>
+                <a href="#checker" class="primary-button">Explore Prediction ↓</a>
+                <div class="hero-note">Educational demo · Simple · Accessible</div>
+            </div>
 
-            <select id="symptoms" name="symptoms" multiple required>
-                <option value="fever">Fever</option>
-                <option value="cough">Cough</option>
-                <option value="headache">Headache</option>
-                <option value="fatigue">Fatigue</option>
-                <option value="sore_throat">Sore throat</option>
-                <option value="body_pain">Body pain</option>
-            </select>
+            <div class="hero-art" aria-hidden="true">
+                <div class="medical-circle">
+                    <div class="medical-cross">+</div>
+                    <div class="pulse-line">⌁ 〰 ⌁</div>
+                    <div class="floating-card">✚ Healthcare technology</div>
+                    <div class="floating-dot">♥</div>
+                </div>
+            </div>
+        </section>
 
-            <p class="hint">Hold Ctrl (Windows) while clicking to select multiple symptoms.</p>
+        <section class="checker-section" id="checker">
+            <div class="section-heading">
+                <span class="eyebrow">INTERACTIVE DEMO</span>
+                <h2>Symptom Checker</h2>
+                <p>Select the symptoms you want to include in the demonstration.</p>
+            </div>
 
-            <button type="submit">Check Prediction</button>
-        </form>
+            <div class="checker-card">
+                <form id="symptom-form">
+                    <h3>What symptoms are you exploring?</h3>
+                    <p class="muted">Select one or more options below.</p>
 
-        <div id="result" role="status" aria-live="polite"></div>
+                    <div class="symptom-grid">
+                        <label class="symptom-option">
+                            <input type="checkbox" name="symptoms" value="fever">
+                            <span class="symptom-icon">🌡️</span>
+                            <span>Fever</span>
+                        </label>
 
-        <p class="disclaimer">
-            Educational demonstration only. This tool cannot diagnose disease
-            or replace advice from a qualified healthcare professional.
-        </p>
-    </div>
+                        <label class="symptom-option">
+                            <input type="checkbox" name="symptoms" value="cough">
+                            <span class="symptom-icon">☁️</span>
+                            <span>Cough</span>
+                        </label>
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+                        <label class="symptom-option">
+                            <input type="checkbox" name="symptoms" value="headache">
+                            <span class="symptom-icon">🧠</span>
+                            <span>Headache</span>
+                        </label>
+
+                        <label class="symptom-option">
+                            <input type="checkbox" name="symptoms" value="fatigue">
+                            <span class="symptom-icon">💤</span>
+                            <span>Fatigue</span>
+                        </label>
+
+                        <label class="symptom-option">
+                            <input type="checkbox" name="symptoms" value="sore_throat">
+                            <span class="symptom-icon">🩺</span>
+                            <span>Sore throat</span>
+                        </label>
+
+                        <label class="symptom-option">
+                            <input type="checkbox" name="symptoms" value="body_pain">
+                            <span class="symptom-icon">🫶</span>
+                            <span>Body pain</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" id="predict-button" class="primary-button predict-button">
+                        Check Prediction →
+                    </button>
+                </form>
+
+                <div id="result" class="result-box" role="status" aria-live="polite" hidden></div>
+
+                <p class="disclaimer">
+                    <strong>Important:</strong> This project is an educational
+                    demonstration, not a medical diagnostic tool. Its output
+                    is not a reliable assessment of your health.
+                </p>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <span class="eyebrow">ABOUT THE PROJECT</span>
+            <h2>Technology supporting healthcare education</h2>
+            <p>
+                This project demonstrates a web application built with Flask
+                and a machine learning model. The interface collects selected
+                symptoms and displays the model's illustrative output.
+            </p>
+
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <span>🌐</span>
+                    <h3>Frontend</h3>
+                    <p>HTML, CSS and JavaScript</p>
+                </div>
+                <div class="tech-card">
+                    <span>⚙️</span>
+                    <h3>Backend</h3>
+                    <p>Python and Flask</p>
+                </div>
+                <div class="tech-card">
+                    <span>🤖</span>
+                    <h3>Machine Learning</h3>
+                    <p>Scikit-learn demonstration model</p>
+                </div>
+                <div class="tech-card">
+                    <span>☁️</span>
+                    <h3>Cloud Deployment</h3>
+                    <p>Hosted on Render</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <a href="/" class="brand footer-brand">
+            <span class="brand-icon">+</span> HealthPredict
+        </a>
+        <p>Cloud-Based Disease Prediction System · Educational project</p>
+    </footer>
 </body>
 </html>
