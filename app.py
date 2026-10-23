@@ -1,3 +1,4 @@
+
 from flask import Flask, jsonify, render_template, request
 from ml_model import train_model
 
@@ -8,7 +9,10 @@ model, symptom_names = train_model()
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template(
+        "index.html",
+        symptom_names=symptom_names
+    )
 
 
 @app.route("/health")
@@ -26,19 +30,30 @@ def predict():
             "error": "Please select at least one symptom."
         }), 400
 
-    allowed_symptoms = set(symptom_names)
-
-    if any(
-        not isinstance(symptom, str) or symptom not in allowed_symptoms
-        for symptom in symptoms
-    ):
+    if any(not isinstance(s, str) for s in symptoms):
         return jsonify({
-            "error": "One or more symptoms are invalid."
+            "error": "Invalid symptom selection."
         }), 400
 
-    # Convert selected symptoms into the feature format expected by the model.
+    # Match the submitted symptoms against the dataset vocabulary.
+    selected = {s.strip().lower() for s in symptoms}
+    symptom_lookup = {
+        symptom.lower(): symptom for symptom in symptom_names
+    }
+
+    invalid = selected - set(symptom_lookup)
+
+    if invalid:
+        return jsonify({
+            "error": (
+                "Some selected symptoms are not supported by the "
+                "dataset model. Please update the website symptom "
+                "options to match the dataset."
+            )
+        }), 400
+
     features = [
-        1 if symptom in symptoms else 0
+        1 if symptom.lower() in selected else 0
         for symptom in symptom_names
     ]
 
@@ -46,8 +61,8 @@ def predict():
 
     return jsonify({
         "message": (
-            f"Demo model output: {prediction}. "
-            "This is an illustrative result, not a medical diagnosis."
+            f"Dataset model output: {prediction}. "
+            "This is an educational prediction only, not a diagnosis."
         )
     })
 
